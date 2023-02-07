@@ -1,8 +1,10 @@
 package com.epam.cdp.caclulator
 
+import kotlin.math.round
+
 class KotlinCalculator {
 
-    fun calculate(input: String): Int {
+    fun calculate(input: String): Double {
         var mutableInput = input.removeParenthesis()
         var stringList = createListOfSubstrates(mutableInput)
         stringList = multiplyOrDivide(stringList) { arg1, arg2, op ->
@@ -21,21 +23,21 @@ class KotlinCalculator {
             }
         }
 
-        return sum
+        return "%.4f".format(sum).toDouble()
     }
 
-    private fun addOrSubtract(stringList: java.util.ArrayList<String>, mathOperation: (Int, Int, String) -> Int): Int {
+    private fun addOrSubtract(stringList: java.util.ArrayList<String>, mathOperation: (Double, Double, String) -> Double): Double {
         var mutableStringList = stringList
-        var firstOperant = 0
-        var secondOperant = 0
+        var firstOperant = 0.0
+        var secondOperant = 0.0
         var operator = "+"
 
-        var sum = mutableStringList.get(0).toInt()
+        var sum = mutableStringList.get(0).toDouble()
         for (i in 1 until mutableStringList.size - 1) {
             if (mutableStringList.get(i).equals("+") || mutableStringList.get(i).equals("-")) {
                 firstOperant = sum
                 operator = mutableStringList.get(i)
-                secondOperant = mutableStringList.get(i + 1).toInt()
+                secondOperant = mutableStringList.get(i + 1).toDouble()
                 val operation = Operation(mutableStringList.get(i), firstOperant, secondOperant)
 
                 sum = mathOperation(operation.operand1, operation.operand2, operator)
@@ -46,19 +48,19 @@ class KotlinCalculator {
 
     private fun multiplyOrDivide(
         stringList: java.util.ArrayList<String>,
-        mathOperation: (Int, Int, String) -> Int
+        mathOperation: (Double, Double, String) -> Double
     ): java.util.ArrayList<String> {
         var mutableStringList = stringList
-        var firstOperant = 0
-        var secondOperant = 0
+        var firstOperant = 0.0
+        var secondOperant = 0.0
         var operator = "+"
 
         while (mutableStringList.contains("*") || mutableStringList.contains("/")) {
             for (i in 1 until mutableStringList.size - 1) {
                 if (mutableStringList.get(i).equals("*") || mutableStringList.get(i).equals("/")) {
-                    firstOperant = mutableStringList.get(i - 1).toInt()
+                    firstOperant = mutableStringList.get(i - 1).toDouble()
                     operator = mutableStringList.get(i)
-                    secondOperant = mutableStringList.get(i + 1).toInt()
+                    secondOperant = mutableStringList.get(i + 1).toDouble()
                     val operation = Operation(mutableStringList.get(i), firstOperant, secondOperant)
 
                     mutableStringList.removeAt(i + 1)
