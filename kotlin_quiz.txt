@@ -1,0 +1,184 @@
+Kotlin quiz
+	1	What is the difference between "var" and "val"?
+
+	var = variable
+	val = constant
+
+	2	Where should you use "var" and where "val"?
+
+	you should use "val" whenever it's possible and "var" only in case the variable needs to be assigned multiple times
+
+	3	What is a data class? What makes them so useful? How are they defined?
+
+	adding "data" keyword in front of a class adds automatically toString(), equals() and hashCode() methods.
+
+	4	How to create a singleton?
+
+	you need to use "object" keyword when creating a class
+
+	5	Explain the Null safety in Kotlin
+
+	no value can be null unless explicitly specified when defined (with "?" after the type).
+	Otherwise, it's not possible to set it to null.
+
+	6	What is a purpose of Companion Objects?
+
+	if you want a function or a variable to be called without having the instance of the class then you put it into
+	a companion object inside the class. then, you can access them by class name only (without the instance of the class).
+	To create a companion object, you need to add the "companion" keyword in front of the object declaration.
+
+	7	What is lateinit in Kotlin and when would you use it?
+	8	When to use lateinit over lazy initialization in Kotlin?
+
+    keyword "lateinit" allows you to put non-nullable variables in a constructor even if they will be initialized later
+    (f.e. through dependency injection). you may have to check if they are initialized yet with ".isInitialized" parameter.
+
+	9	Explain advantages of "when" vs "switch" in Kotlin
+
+	you don't need to break from "when statement".
+
+	10	What are the advantages of Kotlin over Java?
+
+	it's more concise, doesn't have NPE
+
+	11	What are some disadvantages of Kotlin?
+
+	small community of developers, slower compiler, less job opportunities
+
+	12	What is the difference between "open" and "public" in Kotlin?
+
+	"open" means open for extension (not final) while "public" is a visibility modifier like in Java
+
+	13	What is the difference between "const" and "val"?
+
+	"val" and "const val" are used for declaring read-only variables but the variables declared with "const" are
+	initialized at compile-time while "val" are initialized at runtime. The contents of "val" variable can be muted,
+	whereas for const val, the contents cannot be muted.
+
+	14	When is the Elvis operator?
+
+	Elvis operator (?:) If the expression to the left of ?: is not null, the Elvis operator returns it.
+	Otherwise, it returns the expression to the right.
+
+	15	IntArray and Array are they in Kotlin interchangeably?
+
+    Array<Int> is an Integer[] under the hood, while IntArray is an int[].
+
+	16	What is the Kotlin double-bang (!!) operator?
+
+    The not-null assertion operator (!!) converts any value to a non-null type and throws an exception if the value is null.
+
+	17	What is the difference between “*” and “Any” in Kotlin generics?
+
+    A collection of <*> contains objects of a certain type that we don't know (and if you try to get something out
+    of the collection you'll get the type <any> which is like an Object in Kotlin) while <any> means exactly that: any.
+    Also, a collection of <*> can only contain that (unknown) type of objects while a collection of <any> may contain
+    anything because all objects are type <any> in Kotlin.
+
+	18	How to implement Builder pattern in Kotlin?
+
+    You need to create your class with a private constructor and a nested class named Builder.
+
+	19	What is the Unit type?
+
+    "unit" in Kotlin is like "void" in Java. It's a return type of any function that does not return any meaningful value,
+    but Unit is a real class (Singleton) with only one instance.
+
+	20	What is the Nothing type?
+
+	The "nothing" type represents "a value that never exists". If a function returns type of Nothing, it means that
+	it never returns (always throws an exception).
+
+	21	What’s the entry point of every Kotlin Program?
+
+    The entry point for any Kotlin app is fun main() with or without entry argument of Array<String>.
+
+	22	What is extensions and how does it work?
+
+	you can extend a class or an interface without inheritance from that class or using design patterns such as Decorator.
+	You can write new functions or define new properties for a class or an interface from a third-party library that you cannot modify.
+	Such functions can be called in the usual way, as if they were methods of the original class.
+
+	23	What’s the Target Platform of Kotlin? How is Kotlin-Java interoperability possible?
+
+    You can use Kotlin/JVM, Kotlin/JS and Kotlin Native (for iOS).
+    Kotlin-Java interoperability: Existing Java code can be called from Kotlin naturally,
+    and Kotlin code can be used from Java (because it compiles to .class files).
+
+	24	Does Kotlin allow us to use primitive types such as int, float, double?
+
+    no, there are no primitive types in Kotlin.
+
+	25	How is a function declared? Why are Kotlin functions known as top-level functions?
+
+    You need "fun" keyword, you add types of params with a colon (:) and return type after the colon as well.
+    You can have default values of params.
+    Kotlin functions can be declared at the top level in a file, meaning you do not need to create a class to hold a function.
+
+    example:
+	fun powerOf(number: Int, exponent: Int): Int { /*...*/ }
+
+	26	What’s the difference between == and === operators in Kotlin?
+
+	"==" ->  Structural equality (a check for equals())
+	"===" -> Referential equality (two references point to the same object)
+
+	27	List down the visibility modifiers available in Kotlin. What’s the default visibility modifier?
+
+    private, protected, internal, public (default)
+
+	28	What’s init block in Kotlin
+
+    The primary constructor cannot contain any code.
+    Initialization code can be placed in initializer blocks prefixed with the init keyword.
+    The init block executes immediately after the primary constructor.
+
+	29	How does string interpolation work in Kotlin? Explain with a code snippet?
+
+	Kotlin concatanates string with a string builder, and you add params with "$" and param's name.
+
+    class Person(val firstName: String, val lastName: String, val age: Int) {
+        override fun toString(): String {
+            return "$firstName $lastName is $age years old"
+        }
+    } (source: Baeldung)
+
+	30	What are destructuring declarations in Kotlin? Explain it with an example.
+
+    A destructuring declaration creates multiple variables at once:
+    val (name, age) = person ---> is compiled to:   val name = person.component1()
+                                                    val age = person.component2()
+
+    You can create multiple variables with a single line.
+
+	31	What’s the difference between inline and infix functions? Give an example of each.
+
+    An inline function is declared with a keyword "inline" to enhances the performance of Kotlin.
+    The inline function tells the compiler to copy parameters and functions to the call site.
+
+    inline fun View.remove() {
+        if (visibility != View.GONE) visibility = View.GONE
+    } (source: https://betterprogramming.pub/)
+
+    The infix notation allows you to call one-argument functions quickly.
+    In order to create an infix function, two arguments are required.
+    The first argument is the target object, the second argument is the actual argument passed to the function.
+
+    class Fruit {
+        var fruitType = "UnKnown"
+
+        infix fun type(mType: String): Unit {
+            this.fruitType = mType
+        }
+
+    }
+
+    val fruit = Fruit()
+    fruit type "apple" <---- infix notation
+
+	32	What is the mutable and immutable collections?
+
+    In Kotlin, there are three types of immutability:
+    Mutable - you are supposed to change the collection (Kotlin's MutableList)
+    Readonly - you are NOT supposed to change it (Kotlin's List) but something may (cast to Mutable, or change from Java)
+    Immutable - no one can change it (Guavas's immutable collections)

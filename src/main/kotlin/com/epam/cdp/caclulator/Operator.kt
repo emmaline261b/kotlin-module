@@ -2,15 +2,17 @@ package com.epam.cdp.caclulator
 
 import java.lang.IllegalArgumentException
 
-enum class Operator(val sign: String) {
+enum class Operator(val symbol: String) {
     ADDITION("+"),
-    SUBSTRACTION("-"),
+    SUBTRACTION("-"),
     MULTIPLICATION("*"),
-    DIVISION("/");
+    DIVISION("/"),
+    MODULO("%");
+
 
     fun checkSign(toCheck: String): Operator {
         enumValues<Operator>().forEach {
-            if (toCheck.equals(it.sign)) {
+            if (toCheck.equals(it.symbol)) {
                 return it;
             }
         }
@@ -22,12 +24,12 @@ enum class Operator(val sign: String) {
             throw IllegalArgumentException()
         }
 
-        var result = 0;
-        when (this) {
-            ADDITION -> result = firstOperand + secondOperand
-            SUBSTRACTION -> result = firstOperand - secondOperand
-            MULTIPLICATION -> result = firstOperand * secondOperand
-            DIVISION -> result = firstOperand / secondOperand
+        var result = when (this) {
+            ADDITION -> firstOperand + secondOperand
+            SUBTRACTION -> firstOperand - secondOperand
+            MULTIPLICATION -> firstOperand * secondOperand
+            DIVISION -> firstOperand / secondOperand
+            MODULO -> firstOperand % secondOperand
         }
 
         return result
